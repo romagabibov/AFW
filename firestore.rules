@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    function isAdmin() {
+      let userEmail = request.auth != null ? request.auth.token.email : '';
+      let isDefaultAdmin = userEmail == 'vnsbek@gmail.com';
+      let hasSettings = exists(/databases/$(database)/documents/settings/global);
+      let emailsStr = hasSettings ? get(/databases/$(database)/documents/settings/global).data.get('adminEmails', '') : '';
+      let isStringMatch = emailsStr != null && userEmail != '' && emailsStr.matches('.*' + userEmail + '.*');
+      return isDefaultAdmin || isStringMatch;
+    }
+
+    match /test/connection {
+      allow read: if true;
+    }
+    
+    match /settings/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /responses/{document} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

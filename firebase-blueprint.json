@@ -1,0 +1,29 @@
+{
+  "entities": {
+    "Settings": {
+      "title": "Settings",
+      "description": "Global settings for the application.",
+      "type": "object",
+      "properties": {
+        "heroVideoUrl": {
+          "type": "string",
+          "description": "Background video URL for the Hero section"
+        },
+        "applyHeading": {
+          "type": "string",
+          "description": "Heading text for the Apply page"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/test/connection": {
+      "schema": "Settings",
+      "description": "Test connection document."
+    },
+    "/settings/{documentId}": {
+      "schema": "Settings",
+      "description": "Store global application settings."
+    }
+  }
+}

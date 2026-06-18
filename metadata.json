@@ -1,0 +1,6 @@
+{
+  "name": "Azerbaijan Fashion Week",
+  "description": "Premium Fashion Week platform featuring water element theme, active video backgrounds, live schedule, designer profiles, and user dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
